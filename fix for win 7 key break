@@ -5,6 +5,6 @@ del %windir%\system32\7B296FB0-376B-497e-B012-9C450E1B7327-5P-1.C7483456-A289-43
 del %windir%\ServiceProfiles\NetworkService\AppData\Roaming\Microsoft\SoftwareProtectionPlatform\tokens.dat
 del %windir%\ServiceProfiles\NetworkService\AppData\Roaming\Microsoft\SoftwareProtectionPlatform\cache\cache.dat
 net start sppsvc
-cscript %windir%\system32\slmgr.vbs /ipk 33PXH-7Y6KF-2VJC9-XBBR8-HVTHH
+cscript %windir%\system32\slmgr.vbs /ipk #enter windows CD key here
 cscript %windir%\system32\slmgr.vbs /ato
 taskkill /IM slui.exe
