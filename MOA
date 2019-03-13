@@ -1,0 +1,30 @@
+' ----- Capture Microsoft Licensing and Activation Status
+' ----- Provided "as is" - Dell ProSupport
+' ----- 
+strComputer = "."
+const HKEY_LOCAL_MACHINE = &H80000002
+const TemporaryFolder = 2
+const strLogFile = "C:\ospp.log"
+Dim fso: Set fso = CreateObject("Scripting.FileSystemObject")
+Dim tempFolder: tempFolder = fso.GetSpecialFolder(TemporaryFolder)
+Set regObj=GetObject( _ 
+    "winmgmts:{impersonationLevel=impersonate}!\\" & strComputer & "\root\default:StdRegProv")
+strKeyPath = "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\WINWORD.EXE"
+strValueName = "Path"
+regObj.GetStringValue HKEY_LOCAL_MACHINE,strKeyPath,strValueName,strValue
+If IsNull(strValue) then
+	Wscript.Echo " "
+	Wscript.Echo "Microsoft Office is not installed on this system."
+	Wscript.Echo "Aborting script. No logfile produced."
+	WScript.Quit
+End if
+strValue=Replace(strValue,"\Root","")
+Wscript.Echo "Capturing Microsoft Office Activation status ..."
+Wscript.Echo " "
+Set objShell = wscript.createobject("wscript.shell")
+objShell.Run ("cmd /c cscript " &  """" & strValue & "ospp.vbs" & """" & " /dstatusall > " & strLogFile)
+Set objShell=Nothing
+Wscript.Echo "Finished"
+Wscript.Echo " "
+Wscript.Echo "Please attach the file to the Service Request. Log file was saved to " & strLogFile
+WScript.Quit
