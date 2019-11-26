@@ -6,8 +6,8 @@ import java.util.Scanner;
  * version 1.0
  * 
  * Honor Code:
- * ‚ÄúI pledge that this program represents my own program code. 
- * I received help from Brandon Perry (I am using his code for a base as I lost my BMI code) in designing and debugging my program.‚Äù
+ * ìI pledge that this program represents my own program code. 
+ * I received help from Brandon Perry (I am using his code for a base as I lost my BMI code) in designing and debugging my program.î
  */
 
 public class nathanielSmithBMIIO {
@@ -130,47 +130,44 @@ public class nathanielSmithBMIIO {
 	}
 	
 	//Creates and prints BMI info to a file
-	public void printToFile() {
+	public void createFile() throws java.io.IOException {
 		
 		//Creates file
 		java.io.File file = new java.io.File("YourBMI.txt");
 		
-		//If the file already exists, prompt the user the remove the file
+		//If the file already exists, prompt the user to remove the file
 		if (file.exists()) {
 			System.out.println("File already exists, please delete or move file to create new one.");
-			System.exit(1);
+			System.exit(0);
 		}
+	
+		//Makes file
+		java.io.PrintWriter output = new java.io.PrintWriter(file);
 		
 		//Writes to the file
-		System.out.print("Your weight is= ");
-		System.out.println("");
-		System.out.print("Your height is= ");
-		System.out.println("");
-		System.out.print("Your BMI is= ");
-		System.out.println("");
-		System.out.print("You are= ");
-		System.out.println("");
+		output.println("Your weight is= " + weight);
+		output.println("Your height is= " + height);
+		output.println("Your BMI is= " + bmi);
 		
 		//Close file
-		System.out.close();
+		output.close();
 		
 	}
+		
 	
-	
-	/* Code not in use
 	@Override
 	public String toString() {
 		return "Your weight is= " + getWeight() + "Your height is=" + getHeight() + "Your BMI is " + getBmi();
 	}
-	*/
+	
 
 	//main method 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws java.io.IOException {
 		
 		nathanielSmithBMIIO obj = new nathanielSmithBMIIO();
 		obj.promptUser();
 		obj.calculateBMI();
-		obj.printToFile();
+		obj.createFile();
 	}
 
 }
